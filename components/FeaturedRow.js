@@ -4,7 +4,7 @@ import { ArrowRightIcon } from "react-native-heroicons/outline";
 import RestaurantCard from "./RestaurantCard";
 import sanityClient from "../sanity";
 
-const FeaturedRow = ({ id, title, description }) => {
+const FeaturedRow = ({ id, title, description, isLast }) => {
   const [restaurants, setRestaurants] = useState([]);
 
   useEffect(() => {
@@ -44,11 +44,11 @@ const FeaturedRow = ({ id, title, description }) => {
           paddingHorizontal: 15,
         }}
         showsHorizontalScrollIndicator={false}
-        className="pt-4 pb-4"
+        className={`pt-4 pb-2 ${isLast ? "mb-20" : ""}`}
       >
         {/* RestaurantsCards */}
 
-        {restaurants?.map((restaurant) => (
+        {restaurants?.map((restaurant, index, array) => (
           <RestaurantCard
             key={restaurant._id}
             id={restaurant._id}
@@ -58,7 +58,7 @@ const FeaturedRow = ({ id, title, description }) => {
             genre={restaurant.genre}
             address={restaurant.address}
             short_description={restaurant.short_description}
-            dished={restaurant.dishes}
+            dishes={restaurant.dishes}
             long={restaurant.long}
             lat={restaurant.lat}
           />
